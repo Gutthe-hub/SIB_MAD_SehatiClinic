@@ -15,7 +15,7 @@ class AppointmentController extends BaseApiController
                                  ->orderBy('tanggal_appointment', 'desc')
                                  ->get();
         
-        return $this->sendResponse($appointments, 'Appointments retrieved successfully');
+        return $this->sendResponse($appointments, 'Appointments berhasil diambil');
     }
 
     public function store(Request $request)
@@ -47,7 +47,7 @@ class AppointmentController extends BaseApiController
             'status' => 'pending'
         ]));
 
-        return $this->sendResponse($appointment->load(['user', 'doctor', 'confirmedBy']), 'Appointment created successfully', 201);
+        return $this->sendResponse($appointment->load(['user', 'doctor', 'confirmedBy']), 'Appointment berhasil dibuat', 201);
     }
 
     public function show($id)
@@ -56,10 +56,10 @@ class AppointmentController extends BaseApiController
                                  ->find($id);
 
         if (!$appointment) {
-            return $this->sendError('Appointment not found', [], 404);
+            return $this->sendError('Appointment tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($appointment, 'Appointment retrieved successfully');
+        return $this->sendResponse($appointment, 'Appointment berhasil diambil');
     }
 
     public function update(Request $request, $id)
@@ -67,7 +67,7 @@ class AppointmentController extends BaseApiController
         $appointment = Appointment::find($id);
 
         if (!$appointment) {
-            return $this->sendError('Appointment not found', [], 404);
+            return $this->sendError('Appointment tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -90,7 +90,7 @@ class AppointmentController extends BaseApiController
 
         $appointment->update($request->all());
 
-        return $this->sendResponse($appointment->fresh()->load(['user', 'doctor', 'confirmedBy']), 'Appointment updated successfully');
+        return $this->sendResponse($appointment->fresh()->load(['user', 'doctor', 'confirmedBy']), 'Appointment berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -98,11 +98,11 @@ class AppointmentController extends BaseApiController
         $appointment = Appointment::find($id);
 
         if (!$appointment) {
-            return $this->sendError('Appointment not found', [], 404);
+            return $this->sendError('Appointment tidak ditemukan', [], 404);
         }
 
         $appointment->delete();
 
-        return $this->sendResponse([], 'Appointment deleted successfully');
+        return $this->sendResponse([], 'Appointment berhasil dihapus');
     }
 }

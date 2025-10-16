@@ -38,7 +38,7 @@ class AmbulanceRequestController extends BaseApiController
 
         $requests = $query->orderBy('created_at', 'desc')->get();
 
-        return $this->sendResponse($requests, 'Ambulance requests retrieved successfully');
+        return $this->sendResponse($requests, 'Ambulance requests berhasil diambil');
     }
 
     /**
@@ -135,7 +135,7 @@ class AmbulanceRequestController extends BaseApiController
 
         return $this->sendResponse(
             $ambulanceRequest->load(['user', 'ambulance', 'dispatchedBy']), 
-            'Ambulance request created successfully', 
+            'Ambulance request berhasil dibuat', 
             201
         );
     }
@@ -149,10 +149,10 @@ class AmbulanceRequestController extends BaseApiController
                                   ->find($id);
 
         if (!$request) {
-            return $this->sendError('Ambulance request not found', [], 404);
+            return $this->sendError('Ambulance request tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($request, 'Ambulance request retrieved successfully');
+        return $this->sendResponse($request, 'Ambulance request berhasil diambil');
     }
 
     /**
@@ -163,7 +163,7 @@ class AmbulanceRequestController extends BaseApiController
         $ambulanceRequest = AmbulanceRequest::find($id);
 
         if (!$ambulanceRequest) {
-            return $this->sendError('Ambulance request not found', [], 404);
+            return $this->sendError('Ambulance request tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -218,7 +218,7 @@ class AmbulanceRequestController extends BaseApiController
 
         return $this->sendResponse(
             $ambulanceRequest->fresh()->load(['user', 'ambulance', 'dispatchedBy']), 
-            'Ambulance request updated successfully'
+            'Ambulance request berhasil diperbarui'
         );
     }
 
@@ -230,7 +230,7 @@ class AmbulanceRequestController extends BaseApiController
         $request = AmbulanceRequest::find($id);
 
         if (!$request) {
-            return $this->sendError('Ambulance request not found', [], 404);
+            return $this->sendError('Ambulance request tidak ditemukan', [], 404);
         }
 
         // Free up the ambulance if it's assigned
@@ -240,7 +240,7 @@ class AmbulanceRequestController extends BaseApiController
 
         $request->delete();
 
-        return $this->sendResponse([], 'Ambulance request deleted successfully');
+        return $this->sendResponse([], 'Ambulance request berhasil dihapus');
     }
 
     /**
@@ -251,7 +251,7 @@ class AmbulanceRequestController extends BaseApiController
         $ambulanceRequest = AmbulanceRequest::find($id);
 
         if (!$ambulanceRequest) {
-            return $this->sendError('Ambulance request not found', [], 404);
+            return $this->sendError('Ambulance request tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -303,7 +303,7 @@ class AmbulanceRequestController extends BaseApiController
         $ambulanceRequest = AmbulanceRequest::find($id);
 
         if (!$ambulanceRequest) {
-            return $this->sendError('Ambulance request not found', [], 404);
+            return $this->sendError('Ambulance request tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -355,7 +355,7 @@ class AmbulanceRequestController extends BaseApiController
 
         return $this->sendResponse(
             $ambulanceRequest->fresh()->load(['user', 'ambulance']), 
-            'Ambulance request status updated successfully'
+            'Ambulance request status berhasil diperbarui'
         );
     }
 
@@ -370,6 +370,6 @@ class AmbulanceRequestController extends BaseApiController
                                            ->orderBy('created_at', 'desc')
                                            ->get();
 
-        return $this->sendResponse($emergencyRequests, 'Emergency requests retrieved successfully');
+        return $this->sendResponse($emergencyRequests, 'Emergency requests berhasil diambil');
     }
 }

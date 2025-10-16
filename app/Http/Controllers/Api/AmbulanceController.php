@@ -14,7 +14,7 @@ class AmbulanceController extends BaseApiController
                               ->orderBy('created_at', 'desc')
                               ->get();
         
-        return $this->sendResponse($ambulances, 'Ambulances retrieved successfully');
+        return $this->sendResponse($ambulances, 'Ambulances berhasil diambil');
     }
 
     public function store(Request $request)
@@ -36,7 +36,7 @@ class AmbulanceController extends BaseApiController
 
         $ambulance = Ambulance::create($request->all());
 
-        return $this->sendResponse($ambulance, 'Ambulance created successfully', 201);
+        return $this->sendResponse($ambulance, 'Ambulance berhasil dibuat', 201);
     }
 
     public function show($id)
@@ -44,10 +44,10 @@ class AmbulanceController extends BaseApiController
         $ambulance = Ambulance::with(['ambulanceRequests', 'currentRequest'])->find($id);
 
         if (!$ambulance) {
-            return $this->sendError('Ambulance not found', [], 404);
+            return $this->sendError('Ambulance tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($ambulance, 'Ambulance retrieved successfully');
+        return $this->sendResponse($ambulance, 'Ambulance berhasil diambil');
     }
 
     public function update(Request $request, $id)
@@ -55,7 +55,7 @@ class AmbulanceController extends BaseApiController
         $ambulance = Ambulance::find($id);
 
         if (!$ambulance) {
-            return $this->sendError('Ambulance not found', [], 404);
+            return $this->sendError('Ambulance tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -75,7 +75,7 @@ class AmbulanceController extends BaseApiController
 
         $ambulance->update($request->all());
 
-        return $this->sendResponse($ambulance->fresh(), 'Ambulance updated successfully');
+        return $this->sendResponse($ambulance->fresh(), 'Ambulance berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -83,12 +83,12 @@ class AmbulanceController extends BaseApiController
         $ambulance = Ambulance::find($id);
 
         if (!$ambulance) {
-            return $this->sendError('Ambulance not found', [], 404);
+            return $this->sendError('Ambulance tidak ditemukan', [], 404);
         }
 
         $ambulance->delete();
 
-        return $this->sendResponse([], 'Ambulance deleted successfully');
+        return $this->sendResponse([], 'Ambulance berhasil dihapus');
     }
 
     public function getAvailableAmbulances(Request $request)
@@ -106,6 +106,6 @@ class AmbulanceController extends BaseApiController
 
         $ambulances = $query->orderBy('tarif_base', 'asc')->get();
 
-        return $this->sendResponse($ambulances, 'Available ambulances retrieved successfully');
+        return $this->sendResponse($ambulances, 'Available ambulances berhasil diambil');
     }
 }

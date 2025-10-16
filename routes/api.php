@@ -102,7 +102,7 @@ Route::get('search/appointments', function(Request $request) {
 
     return response()->json([
         'success' => true,
-        'message' => 'Filtered appointments retrieved successfully',
+        'message' => 'Filtered appointments berhasil diambil',
         'data' => $appointments
     ]);
 });
@@ -126,7 +126,7 @@ Route::get('search/payments', function(Request $request) {
 
     return response()->json([
         'success' => true,
-        'message' => 'Filtered payments retrieved successfully',
+        'message' => 'Filtered payments berhasil diambil',
         'data' => $payments
     ]);
 });

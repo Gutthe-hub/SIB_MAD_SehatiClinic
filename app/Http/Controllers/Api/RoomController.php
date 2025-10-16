@@ -14,7 +14,7 @@ class RoomController extends BaseApiController
                     ->orderBy('nomor_kamar', 'asc')
                     ->get();
         
-        return $this->sendResponse($rooms, 'Rooms retrieved successfully');
+        return $this->sendResponse($rooms, 'Rooms berhasil diambil');
     }
 
     public function store(Request $request)
@@ -33,7 +33,7 @@ class RoomController extends BaseApiController
 
         $room = Room::create($request->all());
 
-        return $this->sendResponse($room, 'Room created successfully', 201);
+        return $this->sendResponse($room, 'Room berhasil dibuat', 201);
     }
 
     public function show($id)
@@ -41,10 +41,10 @@ class RoomController extends BaseApiController
         $room = Room::with(['roomBookings', 'currentBooking'])->find($id);
 
         if (!$room) {
-            return $this->sendError('Room not found', [], 404);
+            return $this->sendError('Room tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($room, 'Room retrieved successfully');
+        return $this->sendResponse($room, 'Room berhasil diambil');
     }
 
     public function update(Request $request, $id)
@@ -52,7 +52,7 @@ class RoomController extends BaseApiController
         $room = Room::find($id);
 
         if (!$room) {
-            return $this->sendError('Room not found', [], 404);
+            return $this->sendError('Room tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -69,7 +69,7 @@ class RoomController extends BaseApiController
 
         $room->update($request->all());
 
-        return $this->sendResponse($room->fresh(), 'Room updated successfully');
+        return $this->sendResponse($room->fresh(), 'Room berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -77,12 +77,12 @@ class RoomController extends BaseApiController
         $room = Room::find($id);
 
         if (!$room) {
-            return $this->sendError('Room not found', [], 404);
+            return $this->sendError('Room tidak ditemukan', [], 404);
         }
 
         $room->delete();
 
-        return $this->sendResponse([], 'Room deleted successfully');
+        return $this->sendResponse([], 'Room berhasil dihapus');
     }
 
     /**
@@ -119,6 +119,6 @@ class RoomController extends BaseApiController
               });
         })->get();
 
-        return $this->sendResponse($availableRooms, 'Available rooms retrieved successfully');
+        return $this->sendResponse($availableRooms, 'Available rooms berhasil diambil');
     }
 }

@@ -15,7 +15,7 @@ class AdminController extends BaseApiController
                      ->orderBy('created_at', 'desc')
                      ->get();
         
-        return $this->sendResponse($admins, 'Admins retrieved successfully');
+        return $this->sendResponse($admins, 'Admins berhasil diambil');
     }
 
     public function store(Request $request)
@@ -46,7 +46,7 @@ class AdminController extends BaseApiController
             'is_active' => $request->get('is_active', true),
         ]);
 
-        return $this->sendResponse($admin, 'Admin created successfully', 201);
+        return $this->sendResponse($admin, 'Admin sukses dibuat', 201);
     }
 
     public function show($id)
@@ -55,10 +55,10 @@ class AdminController extends BaseApiController
                     ->find($id);
 
         if (!$admin) {
-            return $this->sendError('Admin not found', [], 404);
+            return $this->sendError('Admin tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($admin, 'Admin retrieved successfully');
+        return $this->sendResponse($admin, 'Admin berhasil diambil');
     }
 
     public function update(Request $request, $id)
@@ -66,7 +66,7 @@ class AdminController extends BaseApiController
         $admin = Admin::find($id);
 
         if (!$admin) {
-            return $this->sendError('Admin not found', [], 404);
+            return $this->sendError('Admin tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -94,7 +94,7 @@ class AdminController extends BaseApiController
 
         $admin->update($updateData);
 
-        return $this->sendResponse($admin->fresh(), 'Admin updated successfully');
+        return $this->sendResponse($admin->fresh(), 'Admin berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -102,11 +102,11 @@ class AdminController extends BaseApiController
         $admin = Admin::find($id);
 
         if (!$admin) {
-            return $this->sendError('Admin not found', [], 404);
+            return $this->sendError('Admin tidak ditemukan', [], 404);
         }
 
         $admin->delete();
 
-        return $this->sendResponse([], 'Admin deleted successfully');
+        return $this->sendResponse([], 'Admin berhasil dihapus');
     }
 }

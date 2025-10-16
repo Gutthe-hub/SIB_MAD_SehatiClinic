@@ -32,7 +32,7 @@ class NotificationController extends BaseApiController
 
         $notifications = $query->orderBy('created_at', 'desc')->get();
         
-        return $this->sendResponse($notifications, 'Notifications retrieved successfully');
+        return $this->sendResponse($notifications, 'Notifications berhasil diambil');
     }
 
     /**
@@ -55,7 +55,7 @@ class NotificationController extends BaseApiController
 
         $notification = Notification::create($request->all());
 
-        return $this->sendResponse($notification->load(['user', 'admin']), 'Notification created successfully', 201);
+        return $this->sendResponse($notification->load(['user', 'admin']), 'Notification berhasil dibuat', 201);
     }
 
     /**
@@ -66,10 +66,10 @@ class NotificationController extends BaseApiController
         $notification = Notification::with(['user', 'admin'])->find($id);
 
         if (!$notification) {
-            return $this->sendError('Notification not found', [], 404);
+            return $this->sendError('Notification tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($notification, 'Notification retrieved successfully');
+        return $this->sendResponse($notification, 'Notification berhasil diambil');
     }
 
     /**
@@ -80,7 +80,7 @@ class NotificationController extends BaseApiController
         $notification = Notification::find($id);
 
         if (!$notification) {
-            return $this->sendError('Notification not found', [], 404);
+            return $this->sendError('Notification tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -98,7 +98,7 @@ class NotificationController extends BaseApiController
 
         $notification->update($request->all());
 
-        return $this->sendResponse($notification->fresh()->load(['user', 'admin']), 'Notification updated successfully');
+        return $this->sendResponse($notification->fresh()->load(['user', 'admin']), 'Notification berhasil diperbarui');
     }
 
     /**
@@ -109,12 +109,12 @@ class NotificationController extends BaseApiController
         $notification = Notification::find($id);
 
         if (!$notification) {
-            return $this->sendError('Notification not found', [], 404);
+            return $this->sendError('Notification tidak ditemukan', [], 404);
         }
 
         $notification->delete();
 
-        return $this->sendResponse([], 'Notification deleted successfully');
+        return $this->sendResponse([], 'Notification berhasil dihapus');
     }
 
     /**
@@ -125,7 +125,7 @@ class NotificationController extends BaseApiController
         $notification = Notification::find($id);
 
         if (!$notification) {
-            return $this->sendError('Notification not found', [], 404);
+            return $this->sendError('Notification tidak ditemukan', [], 404);
         }
 
         $notification->update(['is_read' => true]);
@@ -141,7 +141,7 @@ class NotificationController extends BaseApiController
         $user = \App\Models\User::find($userId);
 
         if (!$user) {
-            return $this->sendError('User not found', [], 404);
+            return $this->sendError('User tidak ditemukan', [], 404);
         }
 
         $updated = Notification::where('user_id', $userId)
@@ -171,7 +171,7 @@ class NotificationController extends BaseApiController
                             ->where('is_read', false)
                             ->count();
 
-        return $this->sendResponse(['unread_count' => $count], 'Unread count retrieved successfully');
+        return $this->sendResponse(['unread_count' => $count], 'Unread count berhasil diambil');
     }
 
     /**

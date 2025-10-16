@@ -15,7 +15,7 @@ class PaymentController extends BaseApiController
                           ->orderBy('created_at', 'desc')
                           ->get();
         
-        return $this->sendResponse($payments, 'Payments retrieved successfully');
+        return $this->sendResponse($payments, 'Payments berhasil diambil');
     }
 
     public function store(Request $request)
@@ -54,7 +54,7 @@ class PaymentController extends BaseApiController
             'status' => 'pending'
         ]));
 
-        return $this->sendResponse($payment->load(['user', 'appointment', 'roomBooking', 'ambulanceRequest']), 'Payment created successfully', 201);
+        return $this->sendResponse($payment->load(['user', 'appointment', 'roomBooking', 'ambulanceRequest']), 'Payment berhasil dibuat', 201);
     }
 
     public function show($id)
@@ -63,10 +63,10 @@ class PaymentController extends BaseApiController
                          ->find($id);
 
         if (!$payment) {
-            return $this->sendError('Payment not found', [], 404);
+            return $this->sendError('Payment tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($payment, 'Payment retrieved successfully');
+        return $this->sendResponse($payment, 'Payment berhasil diambil');
     }
 
     public function update(Request $request, $id)
@@ -74,7 +74,7 @@ class PaymentController extends BaseApiController
         $payment = Payment::find($id);
 
         if (!$payment) {
-            return $this->sendError('Payment not found', [], 404);
+            return $this->sendError('Payment tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -99,7 +99,7 @@ class PaymentController extends BaseApiController
 
         $payment->update($updateData);
 
-        return $this->sendResponse($payment->fresh()->load(['user', 'processedBy']), 'Payment updated successfully');
+        return $this->sendResponse($payment->fresh()->load(['user', 'processedBy']), 'Payment berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -107,12 +107,12 @@ class PaymentController extends BaseApiController
         $payment = Payment::find($id);
 
         if (!$payment) {
-            return $this->sendError('Payment not found', [], 404);
+            return $this->sendError('Payment tidak ditemukan', [], 404);
         }
 
         $payment->delete();
 
-        return $this->sendResponse([], 'Payment deleted successfully');
+        return $this->sendResponse([], 'Payment berhasil dihapus');
     }
 
     public function confirmPayment(Request $request, $id)
@@ -120,7 +120,7 @@ class PaymentController extends BaseApiController
         $payment = Payment::find($id);
 
         if (!$payment) {
-            return $this->sendError('Payment not found', [], 404);
+            return $this->sendError('Payment tidak ditemukan', [], 404);
         }
 
         if ($payment->status === 'paid') {

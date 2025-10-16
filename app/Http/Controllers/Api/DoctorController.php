@@ -14,7 +14,7 @@ class DoctorController extends BaseApiController
                         ->orderBy('created_at', 'desc')
                         ->get();
         
-        return $this->sendResponse($doctors, 'Doctors retrieved successfully');
+        return $this->sendResponse($doctors, 'Doctors berhasil diambil');
     }
 
     public function store(Request $request)
@@ -36,7 +36,7 @@ class DoctorController extends BaseApiController
 
         $doctor = Doctor::create($request->all());
 
-        return $this->sendResponse($doctor->load('createdBy'), 'Doctor created successfully', 201);
+        return $this->sendResponse($doctor->load('createdBy'), 'Doctor berhasil dibuat', 201);
     }
 
     public function show($id)
@@ -44,10 +44,10 @@ class DoctorController extends BaseApiController
         $doctor = Doctor::with(['appointments', 'createdBy'])->find($id);
 
         if (!$doctor) {
-            return $this->sendError('Doctor not found', [], 404);
+            return $this->sendError('Doctor tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($doctor, 'Doctor retrieved successfully');
+        return $this->sendResponse($doctor, 'Doctor berhasil diambil');
     }
 
     public function update(Request $request, $id)
@@ -55,7 +55,7 @@ class DoctorController extends BaseApiController
         $doctor = Doctor::find($id);
 
         if (!$doctor) {
-            return $this->sendError('Doctor not found', [], 404);
+            return $this->sendError('Doctor tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -75,7 +75,7 @@ class DoctorController extends BaseApiController
 
         $doctor->update($request->all());
 
-        return $this->sendResponse($doctor->fresh()->load('createdBy'), 'Doctor updated successfully');
+        return $this->sendResponse($doctor->fresh()->load('createdBy'), 'Doctor berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -83,11 +83,11 @@ class DoctorController extends BaseApiController
         $doctor = Doctor::find($id);
 
         if (!$doctor) {
-            return $this->sendError('Doctor not found', [], 404);
+            return $this->sendError('Doctor tidak ditemukan', [], 404);
         }
 
         $doctor->delete();
 
-        return $this->sendResponse([], 'Doctor deleted successfully');
+        return $this->sendResponse([], 'Doctor berhasil dihapus');
     }
 }

@@ -46,7 +46,7 @@ class RoomBookingController extends BaseApiController
 
         $bookings = $query->orderBy('created_at', 'desc')->get();
 
-        return $this->sendResponse($bookings, 'Room bookings retrieved successfully');
+        return $this->sendResponse($bookings, 'Room bookings berhasil diambil');
     }
 
     /**
@@ -94,7 +94,7 @@ class RoomBookingController extends BaseApiController
                                         ->exists();
 
         if ($conflictingBooking) {
-            return $this->sendError('Room is already booked for the selected dates', [], 400);
+            return $this->sendError('Kamar telah dibooking di tanggal yang terpilih', [], 400);
         }
 
         // Calculate total cost
@@ -132,7 +132,7 @@ class RoomBookingController extends BaseApiController
 
         return $this->sendResponse(
             $booking->load(['user', 'room', 'appointment', 'confirmedBy']), 
-            'Room booking created successfully', 
+            'Room booking berhasil dibuat', 
             201
         );
     }
@@ -153,10 +153,10 @@ class RoomBookingController extends BaseApiController
         ])->find($id);
 
         if (!$booking) {
-            return $this->sendError('Room booking not found', [], 404);
+            return $this->sendError('Room booking tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($booking, 'Room booking retrieved successfully');
+        return $this->sendResponse($booking, 'Room booking berhasil diambil');
     }
 
     /**
@@ -167,7 +167,7 @@ class RoomBookingController extends BaseApiController
         $booking = RoomBooking::find($id);
 
         if (!$booking) {
-            return $this->sendError('Room booking not found', [], 404);
+            return $this->sendError('Room booking tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -236,7 +236,7 @@ class RoomBookingController extends BaseApiController
 
         return $this->sendResponse(
             $booking->fresh()->load(['user', 'room', 'confirmedBy', 'checkinBy', 'checkoutBy']), 
-            'Room booking updated successfully'
+            'Room booking berhasil diperbarui'
         );
     }
 
@@ -248,7 +248,7 @@ class RoomBookingController extends BaseApiController
         $booking = RoomBooking::find($id);
 
         if (!$booking) {
-            return $this->sendError('Room booking not found', [], 404);
+            return $this->sendError('Room booking tidak ditemukan', [], 404);
         }
 
         // Free up the room if it was occupied
@@ -258,7 +258,7 @@ class RoomBookingController extends BaseApiController
 
         $booking->delete();
 
-        return $this->sendResponse([], 'Room booking deleted successfully');
+        return $this->sendResponse([], 'Room booking berhasil dihapus');
     }
 
     /**
@@ -269,7 +269,7 @@ class RoomBookingController extends BaseApiController
         $booking = RoomBooking::find($id);
 
         if (!$booking) {
-            return $this->sendError('Room booking not found', [], 404);
+            return $this->sendError('Room booking tidak ditemukan', [], 404);
         }
 
         if ($booking->status !== 'pending') {
@@ -308,7 +308,7 @@ class RoomBookingController extends BaseApiController
         $booking = RoomBooking::find($id);
 
         if (!$booking) {
-            return $this->sendError('Room booking not found', [], 404);
+            return $this->sendError('Room booking tidak ditemukan', [], 404);
         }
 
         if ($booking->status !== 'confirmed') {
@@ -351,7 +351,7 @@ class RoomBookingController extends BaseApiController
         $booking = RoomBooking::find($id);
 
         if (!$booking) {
-            return $this->sendError('Room booking not found', [], 404);
+            return $this->sendError('Room booking tidak ditemukan', [], 404);
         }
 
         if ($booking->status !== 'checkin') {
@@ -430,7 +430,7 @@ class RoomBookingController extends BaseApiController
             ->groupBy('rooms.tipe_kamar')
             ->get();
 
-        return $this->sendResponse($occupancyData, 'Room occupancy report retrieved successfully');
+        return $this->sendResponse($occupancyData, 'Room occupancy report berhasil diambil');
     }
 
     /**
@@ -480,6 +480,6 @@ class RoomBookingController extends BaseApiController
             $room->estimated_days = $days;
         });
 
-        return $this->sendResponse($availableRooms, 'Available rooms retrieved successfully');
+        return $this->sendResponse($availableRooms, 'Available rooms berhasil diambil');
     }
 }

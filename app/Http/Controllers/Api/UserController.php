@@ -18,7 +18,7 @@ class UserController extends BaseApiController
                     ->orderBy('created_at', 'desc')
                     ->get();
         
-        return $this->sendResponse($users, 'Users retrieved successfully');
+        return $this->sendResponse($users, 'Users berhasil diambil');
     }
 
     /**
@@ -56,7 +56,7 @@ class UserController extends BaseApiController
             'password' => Hash::make($request->password),
         ]);
 
-        return $this->sendResponse($user, 'User created successfully', 201);
+        return $this->sendResponse($user, 'User berhasil dibuat', 201);
     }
 
     /**
@@ -68,10 +68,10 @@ class UserController extends BaseApiController
                    ->find($id);
 
         if (!$user) {
-            return $this->sendError('User not found', [], 404);
+            return $this->sendError('User tidak ditemukan', [], 404);
         }
 
-        return $this->sendResponse($user, 'User retrieved successfully');
+        return $this->sendResponse($user, 'User berhasil diambil');
     }
 
     /**
@@ -82,7 +82,7 @@ class UserController extends BaseApiController
         $user = User::find($id);
 
         if (!$user) {
-            return $this->sendError('User not found', [], 404);
+            return $this->sendError('User tidak ditemukan', [], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -113,7 +113,7 @@ class UserController extends BaseApiController
 
         $user->update($updateData);
 
-        return $this->sendResponse($user->fresh(), 'User updated successfully');
+        return $this->sendResponse($user->fresh(), 'User berhasil diperbarui');
     }
 
     /**
@@ -124,11 +124,11 @@ class UserController extends BaseApiController
         $user = User::find($id);
 
         if (!$user) {
-            return $this->sendError('User not found', [], 404);
+            return $this->sendError('User tidak ditemukan', [], 404);
         }
 
         $user->delete();
 
-        return $this->sendResponse([], 'User deleted successfully');
+        return $this->sendResponse([], 'User berhasil dihapus');
     }
 }
